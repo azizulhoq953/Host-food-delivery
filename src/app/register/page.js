@@ -1,6 +1,7 @@
 "use client"
 // import { Link } from "react-router-dom"
 import Image from "next/image"
+import { signIn } from "next-auth/react";
 import React, { useState } from 'react';
 export default function RegisterPage(){
     const [email, setEmail] = useState('');
