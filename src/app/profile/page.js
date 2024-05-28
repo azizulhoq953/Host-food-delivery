@@ -3,6 +3,8 @@ import Image from "next/image"
 import { useSession } from "next-auth/react";
 import {redirect} from "next/navigation";
 import { useEffect, useState } from "react";
+import InfoBox from "../../components/layout/infoBox";
+import SuccessBox from "../../components/layout/SuccessBox";
 
 
 
@@ -71,17 +73,13 @@ export default function ProfilePage() {
             <div className="max-w-md mx-auto border"> 
 
             {saved && (
-                <h2 className=" text-center bg-green-100 p-4 rounded-lg border
-                border-green-300">
+                <SuccessBox>
                     Profile Saved! 
-                </h2>
+                </SuccessBox>
             )}
 
             {isSaving && (
-                <h2 className=" text-center bg-blue-100 p-4 rounded-lg border
-                border-blue-300">
-                    Saving.. 
-                </h2>
+              <InfoBox>Saving.. </InfoBox>
             )}
 
             
