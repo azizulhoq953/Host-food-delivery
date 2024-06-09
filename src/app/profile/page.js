@@ -5,20 +5,25 @@ import {redirect} from "next/navigation";
 import { useEffect, useState } from "react";
 import InfoBox from "../../components/layout/infoBox";
 import SuccessBox from "../../components/layout/SuccessBox";
+import UserTabs from "../../components/layout/UserTabs"
+import EditableImage from "../../components/layout/EditableImage"
 import toast from "react-hot-toast";
 
 
 
 
 export default function ProfilePage() {
-    const session = useSession();
+   const session = useSession();
    const [userName, setUserName] = useState('');
-   const {status} = session;
    const [phone, setPhone] = useState('');
    const [streetAddress, setStreetAddress ] = useState('');
    const [postalCode, setPostalCode ] = useState('');
    const [city, setCity ] = useState('');
    const [Country, setCountry] = useState('');
+   const [isAdmin, setIsAdmin] = useState('');
+   const [image, setImage] = useState('');
+   const {status} = session;
+//    const setIsAdmin = true;
     // console.log(session);
 
     useEffect(() => {
@@ -31,7 +36,8 @@ export default function ProfilePage() {
                     setStreetAddress(data.streetAddress);
                     setPostalCode(data.postalCode);
                     setCity(data.city);
-                   setCountry(data.Country)
+                   setCountry(data.Country);
+                   setIsAdmin(data.admin)
                 });
             })
         }
@@ -64,8 +70,8 @@ export default function ProfilePage() {
             });
          
         
-            // const link = await response.JSON();
-            // setImage(link)
+            const link = await response.JSON();
+            setImage(link)
         }
     }
 
@@ -80,7 +86,7 @@ export default function ProfilePage() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     name:userName,
-                    // image,
+                    image,
                     streetAddress,
                     phone,
                     postalCode,
@@ -114,10 +120,9 @@ export default function ProfilePage() {
 
     return (
         <section className=" mt-8">
-            <h1 className=" text-center text-primary text-4xl mb-4">
-                Profile
-            </h1>
-            <div className="max-w-md mx-auto"> 
+       <UserTabs setIsAdmin = {setIsAdmin}/>
+            
+            <div className="max-w-md mx-auto mt-8"> 
 
             {/* {saved && (
                 <SuccessBox>
@@ -133,16 +138,8 @@ export default function ProfilePage() {
                 <div className=" flex gap-4 items-center">
                     <div>
                         <div className=" p-2 rounded-lg relative">
-                        <Image className="rounded-lg w-full h-full mb-1" src={userImage} width={250} height={250} alt={'avatar'} />
-                        <label>
-                            <input type="file" className="hidden" onChange={handleFileChange}
-                            /> 
-                            <span className=" block border border-gray-300 rounded-lg p-2
-                            text-center cursor-pointer">
-                                Edit 
-                            </span>
-                        </label>
-                        
+                       
+                       <EditableImage link={image} setLink={setImage} /> 
                         </div>
                     </div>
 
