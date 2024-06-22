@@ -1,11 +1,12 @@
 'use client'
 import { useState } from "react";
+import { redirect } from "next/navigation";
 import {useProfile} from "../../../components/UseProfile"
 import UserTabs from "../../../components/layout/UserTabs";
 import EditableImage from "../../../components/layout/EditableImage";
 import toast from "react-hot-toast";
 import Right from "../../../components/icons/Right";
-import { redirect } from "next/dist/server/api-utils";
+// import { redirect } from "next/dist/server/api-utils";
 
 export default function NewMenuItemPage(){
     const [image, setImage] = useState('');
@@ -90,6 +91,6 @@ export default function NewMenuItemPage(){
             </div>
             </form>
         </section> 
-    )
+    );
 
 }
