@@ -58,20 +58,19 @@
 
 // export { handler as GET, handler as POST }
 
-// netlify purpose modify
 
-import clientPromise from "../../../../libs/mongoConnect";
-import { UserInfo } from "../../../../models/UserInfo";
-import bcrypt from "bcrypt";
-import mongoose from "mongoose";
-import { User } from '../../../../models/User';
-import NextAuth, { getServerSession } from "next-auth";
+// src/app/api/auth/[...nextauth]/route.js
+
+import NextAuth from "next-auth/react";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "../../../../libs/mongoConnect";
+import { authOptions } from "../../../../config/auth"; // Your authentication options
+import { isAdmin } from "../../../../utils/authUtils";
 
-export const authOptions = {
-  secret: process.env.SECRET,
+const options = {
+  ...authOptions,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -86,36 +85,35 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
-
-        await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-        const user = await User.findOne({ email });
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        if (passwordOk) {
-          return user;
-        }
-
-        return null;
+        // Your authorization logic here
       }
-    })
+    }),
   ],
 };
 
-export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  if (!userEmail) {
-    return false;
+const handler = NextAuth(options);
+
+export default handler;
+
+// Example usage of isAdmin:
+export async function GET(req, res) {
+  const authorized = await isAdmin(req);
+
+  if (!authorized) {
+    return res.status(403).json({ error: "Unauthorized" });
   }
-  const userInfo = await UserInfo.findOne({ email: userEmail });
-  if (!userInfo) {
-    return false;
-  }
-  return userInfo.admin;
+
+  // Handle authorized GET request logic
+  res.status(200).json({ message: "Authorized GET request" });
 }
 
-const handler = NextAuth(authOptions);
+export async function POST(req, res) {
+  const authorized = await isAdmin(req);
 
-export { handler as GET, handler as POST };
+  if (!authorized) {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
+  // Handle authorized POST request logic
+  res.status(200).json({ message: "Authorized POST request" });
+}
