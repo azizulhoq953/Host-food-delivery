@@ -78,9 +78,9 @@ export default function CategoriesPage() {
     return 'Loading user info...';
   }
 
-//   if (!profileData.admin) {
-//     return 'Not an admin';
-//   }
+  // if (!profileData.admin) {
+  //   return 'Not an admin';
+  // }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
@@ -100,7 +100,7 @@ export default function CategoriesPage() {
             />
           </div>
           <div className="pb-2 flex gap-2">
-            <button className="border  bg-primary" type="submit">
+            <button className="border border-primary" type="submit">
               {editedCategory ? 'Update' : 'Create'}
             </button>
             <button

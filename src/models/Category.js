@@ -1,9 +1,7 @@
-import {model, models, Schema } from "mongoose";
-import { type } from "os";
+import {model, models, Schema} from "mongoose";
 
 const CategorySchema = new Schema({
-    name: {type: String, required:true},
+  name: {type:String, required:true},
+}, {timestamps: true});
 
-},{timestamps: true});
-
-export const Category = model?.Category || model('Category', CategorySchema);
+export const Category = models?.Category || model('Category', CategorySchema);
