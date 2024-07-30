@@ -4,6 +4,7 @@
     "include":["."],
     "paths": {
       "@/app*": ["./src/app/*"],
+      // "@/pages*": ["./src/pages/*"],
       "@/models*": ["./src/models/*"],
       "@/components*": ["./src/components/*"]
 
