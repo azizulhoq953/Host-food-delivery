@@ -2,7 +2,7 @@ import { isAdmin } from "../../../utils/isAdmin";
 import { User } from "../../../models/User";
 import mongoose from "mongoose";
 import { NextResponse as Response } from 'next/server';
-import handler from "../auth/[...nextauth]/route"; // Adjust the path as per your project structure
+import handler from "../auth/[...nextauth]"; // Adjust the path as per your project structure
 
 
 export async function GET() {
