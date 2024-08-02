@@ -14,7 +14,7 @@ export default function RegisterPage(){
         setCreatingUser(true);
         setError(false);
         setUserCreated(false);
-       const Response = await fetch('/api/register',{
+       const Response = await fetch('/api/register/',{
             method: 'POST',
             body : JSON.stringify({email, password}),
             headers: {'Content-Type': 'application/json'},
@@ -51,7 +51,7 @@ export default function RegisterPage(){
                 <input type="password" placeholder="password" value={password}
                    disabled={creatingUser}
                    onChange={ev => setPassword(ev.target.value)}/>
-                <button className=" bg-primary submit" disabled={creatingUser}> 
+                <button className=" bg-green-500 submit" disabled={creatingUser}> 
                 Register
                 </button> 
 

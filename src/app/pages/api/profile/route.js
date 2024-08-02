@@ -1,4 +1,5 @@
-import { authOptions } from "../auth/[...nextauth]";
+import { nextauth } from "../auth/[...nextauth]";
+import { authOptions } from "../auth/authOptions";
 import { User } from "../../../models/User";
 import { UserInfo } from "../../../models/UserInfo";
 import mongoose from "mongoose";
