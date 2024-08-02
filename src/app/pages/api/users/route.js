@@ -1,4 +1,4 @@
-import { User } from "../../../models/User";
+import { User } from "../../../../models/User";
 import mongoose from "mongoose";
 import { NextResponse as Response } from 'next/server';
 import handler from "../auth/[...nextauth]"; // Adjust the path as per your project structure
