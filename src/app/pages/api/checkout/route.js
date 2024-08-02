@@ -1,5 +1,5 @@
 import {authOptions} from "../auth/[...nextauth]";
-import {MenuItem} from "../../../models/MenuItem";
+import {MenuItem} from "../../../../models/MenuItem";
 import {Order} from "../../../models/Order";
 import mongoose from "mongoose";
 import {getServerSession} from "next-auth";

@@ -1,9 +1,9 @@
 //add this file
-import clientPromise from "../../../libs/mongoConnect";
-import { UserInfo } from "../../../models/UserInfo";
+import clientPromise from "../../../../libs/mongoConnect";
+import { UserInfo } from "../../../../models/UserInfo";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import { User } from '../../../models/User';
+import { User } from "../../../../models/User";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";

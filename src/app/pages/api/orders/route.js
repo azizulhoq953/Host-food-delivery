@@ -1,5 +1,5 @@
 import {authOptions, isAdmin} from "../auth/[...nextauth]";
-import {Order} from "../../../models/Order";
+import {Order} from "../../../../models/Order";
 import mongoose from "mongoose";
 import {getServerSession} from "next-auth";
 

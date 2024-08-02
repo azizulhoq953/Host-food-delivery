@@ -1,4 +1,3 @@
-import { isAdmin } from "../../../utils/isAdmin";
 import { User } from "../../../models/User";
 import mongoose from "mongoose";
 import { NextResponse as Response } from 'next/server';
