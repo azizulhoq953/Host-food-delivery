@@ -1,14 +1,12 @@
-import { User } from "../../../../models/User";
+import { User } from "../../../models/User";
 import mongoose from "mongoose";
-import { NextResponse as Response } from 'next/server';
-import handler from "../auth/[...nextauth]"; // Adjust the path as per your project structure
-
+import { NextResponse as Response } from "next/server";
 
 export async function GET() {
   try {
     mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
 
     if (await isAdmin()) {
@@ -19,18 +17,13 @@ export async function GET() {
     }
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'An error occurred' }, { status: 500 });
+    return Response.json({ error: "An error occurred" }, { status: 500 });
   }
 }
-
-
-
-
 
 // import {isAdmin} from "../auth/[...nextauth]/route";
 // import {User} from "../../../models/User";
 // import mongoose from "mongoose";
-
 
 // export async function GET() {
 //   mongoose.connect(process.env.MONGO_URL);
@@ -41,6 +34,3 @@ export async function GET() {
 //     return Response.json([]);
 //   }
 // }
-
-
-

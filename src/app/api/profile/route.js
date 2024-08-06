@@ -1,14 +1,13 @@
-import { nextauth } from "../auth/[...nextauth]";
-import { authOptions } from "../auth/authOptions";
-import { User } from "../../../../models/User";
-import { UserInfo } from "../../../../models/UserInfo";
+import { authOptions } from "../../utls/authOptions";
+import { User } from "../../../models/User";
+import { UserInfo } from "../../../models/UserInfo";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-import { NextResponse as Response } from 'next/server';
+import { NextResponse as Response } from "next/server";
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
 export async function PUT(req) {
@@ -23,30 +22,32 @@ export async function PUT(req) {
       const session = await getServerSession(authOptions);
       const email = session?.user?.email;
       if (!email) {
-        return Response.json({ error: 'Not authenticated' }, { status: 401 });
+        return Response.json({ error: "Not authenticated" }, { status: 401 });
       }
       filter = { email };
     }
 
     const user = await User.findOne(filter);
     if (!user) {
-      return Response.json({ error: 'User not found' }, { status: 404 });
+      return Response.json({ error: "User not found" }, { status: 404 });
     }
 
     await User.updateOne(filter, { name, image });
-    await UserInfo.findOneAndUpdate({ email: user.email }, otherUserInfo, { upsert: true });
+    await UserInfo.findOneAndUpdate({ email: user.email }, otherUserInfo, {
+      upsert: true
+    });
 
     return Response.json(true);
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'An error occurred' }, { status: 500 });
+    return Response.json({ error: "An error occurred" }, { status: 500 });
   }
 }
 
 export async function GET(req) {
   try {
     const url = new URL(req.url);
-    const _id = url.searchParams.get('_id');
+    const _id = url.searchParams.get("_id");
 
     let filterUser = {};
     if (_id) {
@@ -69,13 +70,9 @@ export async function GET(req) {
     return Response.json({ ...user, ...userInfo });
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'An error occurred' }, { status: 500 });
+    return Response.json({ error: "An error occurred" }, { status: 500 });
   }
 }
-
-
-
-
 
 // import {authOptions} from "../auth/[...nextauth]/route";
 // import {User} from "../../../models/User";
